@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ToDo List</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Dosis|Shadows+Into+Light&display=swap" rel="stylesheet">
+  <script src="./js/bundle.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h1>ToDo List</h1>
+
+    <form v-on:submit.prevent="saveNewJob">
+      <input id="new-job" type="text" v-model="newJob" />
+
+      <input type="radio" id="lowPriority" value="" v-model="priority" >
+      <label for="lowPriority">low</label>
+
+      <input type="radio" id="highPriority" value="High" v-model="priority" >
+      <label for="highPriority">high</label>
+
+      <input type="submit" value ="Save New Task" />
+    </form>
+
+    <ul>
+      <li v-for="(job, index, priority) in jobs" :class="job.isDone ? 'done':'not-done'" >
+        <span>{{ job.task }}</span>
+        <span id="priority" v-if="job.isHighPriority" :class="job.isHighPriority ? 'high':'low'">High priority</span>
+        <span v-if="job.isDone"> </span>
+        <button v-if="!job.isDone" v-on:click="jobDone(index)">Done</button>
+      </li>
+    </ul>
+
+  </div>
+</body>
+</html>
